@@ -21,7 +21,7 @@ const fetchPeople = async (page) => {
 const Temp = () => {
     const [ page, setPage ] = useState(1);
 
-    const { isLoading, error, data} = useQuery(
+    const { isLoading, error, data, isPreviousData} = useQuery(
         ['people',page],
         ()=>fetchPeople(page),
         { keepPreviousData:true,            
@@ -50,6 +50,9 @@ const Temp = () => {
             onClick={
                 ()=>{ setPage(old=>old+1) }
             }
+            //below line is not working. 
+            //disabled={isPreviousData || !data.hasMore}
+            //thats why I have to write the below line which uses static page number.
             disabled={page===9}
             >
             Next
